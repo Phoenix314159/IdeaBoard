@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import IdeaBox from './IdeaBox'
+import TopSection from './TopSection'
 
 export default class Main extends Component {
   constructor () {
@@ -20,18 +21,23 @@ export default class Main extends Component {
     this.setState({ideas: data})
   }
 
+  closeBox = index => {
+    const {ideas} = this.state
+    ideas.map(box => {
+      if(box === ideas[index]) {
+        delete ideas[index]
+      }
+    }).filter(Boolean)
+    this.setState({ideas})
+  }
+
   render () {
     const {ideas} = this.state
     if (!ideas) return <div>Loading...</div>
     return (
       <div className="container">
-        <h2 className="ideaHeader">Idea Board</h2>
-        <div className="newIdeaButton">
-          <button className="btn btn-primary" onClick={this.addNewIdea}>New Idea</button>
-        </div>
-        <div className="row">
-          <IdeaBox ideas={ideas}/>
-        </div>
+       <TopSection addNewIdea={this.addNewIdea}/>
+        <IdeaBox ideas={ideas} closeBox={this.closeBox}/>
       </div>
     )
   }

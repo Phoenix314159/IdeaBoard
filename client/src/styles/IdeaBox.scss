@@ -3,7 +3,16 @@
   width: 150px;
   margin: 10px;
   background-color: orange;
-  float: left;
   font-size: 11px;
   text-align: center;
+}
+
+.closeButton {
+ float: right;
+}
+
+.ideaBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
