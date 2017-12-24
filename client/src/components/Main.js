@@ -16,18 +16,19 @@ export default class Main extends Component {
     this.setState({ideas: data})
   }
 
-  addNewIdea = async () => {
-    const {data} = await axios.post('/api/ideas', {idea: {title: '', body: ''}})
+  addNewIdea = async (title, body) => {
+    const {data} = await axios.post('/api/ideas', {idea: {title, body}})
     this.setState({ideas: data})
   }
 
-  closeBox = index => {
+  closeBox = async id => {
     const {ideas} = this.state
-    ideas.map(box => {
-      if(box === ideas[index]) {
-        delete ideas[index]
-      }
-    }).filter(Boolean)
+    await axios.delete(`/api/ideas?id=${id}`)
+    // ideas.map(box => {
+    //   if (box === ideas[index]) {
+    //     delete ideas[index]
+    //   }
+    // }).filter(Boolean)
     this.setState({ideas})
   }
 
@@ -36,7 +37,7 @@ export default class Main extends Component {
     if (!ideas) return <div>Loading...</div>
     return (
       <div className="container">
-       <TopSection addNewIdea={this.addNewIdea}/>
+        <TopSection addNewIdea={this.addNewIdea}/>
         <IdeaBox ideas={ideas} closeBox={this.closeBox}/>
       </div>
     )

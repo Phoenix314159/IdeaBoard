@@ -5,7 +5,7 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   path = require('path');
 
-// (async () => { app.set('db', await massive(dbConnection)) })()
+(async () => { app.set('db', await massive(dbConnection)) })()
 
 app.use(bodyParser.json())
 require('./middleware/dbRoutes')(app)
